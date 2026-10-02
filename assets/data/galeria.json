@@ -1,0 +1,15 @@
+[
+  { "year": 2026, "items": [
+    { "type": "image", "src": "https://picsum.photos/seed/ep26a/1200/800", "title": "Encuentro de militancia", "place": "Resistencia, Chaco", "date": "2026-05-17" },
+    { "type": "image", "src": "https://picsum.photos/seed/ep26b/1200/800", "title": "Jornada en el barrio", "place": "Barranqueras", "date": "2026-06-14" },
+    { "type": "video", "src": "https://www.youtube.com/watch?v=REEMPLAZAR_ID", "thumb": "https://picsum.photos/seed/ep26v/1200/800", "title": "Acto 26 de julio", "place": "Resistencia", "date": "2026-07-26" }
+  ]},
+  { "year": 2025, "items": [
+    { "type": "image", "src": "https://picsum.photos/seed/ep25a/1200/800", "title": "Jornada solidaria", "place": "Puerto Vilelas", "date": "2025-08-10" },
+    { "type": "image", "src": "https://picsum.photos/seed/ep25b/1200/800", "title": "Taller de formación", "place": "Sáenz Peña", "date": "2025-10-04" }
+  ]},
+  { "year": 2024, "items": [
+    { "type": "image", "src": "https://picsum.photos/seed/ep24a/1200/800", "title": "Primer encuentro del año", "place": "Villa Ángela", "date": "2024-03-09" },
+    { "type": "video-local", "src": "assets/img/2024/video-ejemplo.mp4", "thumb": "https://picsum.photos/seed/ep24v/1200/800", "title": "Recorrida barrial", "place": "Resistencia", "date": "2024-09-21" }
+  ]}
+]
