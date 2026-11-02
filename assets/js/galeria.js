@@ -1,40 +1,91 @@
-// Galería cronológica: se arma sola a partir de assets/data/galeria.json
 async function initGaleria() {
-  const nav = document.getElementById('years-nav'), tl = document.getElementById('timeline');
-  let data;
+  const nav = document.getElementById('years-nav');
+  const timeline = document.getElementById('timeline');
+  const previous = document.getElementById('gallery-prev');
+  const next = document.getElementById('gallery-next');
+  const pageLabel = document.getElementById('gallery-page');
+  let items, selectedYear = 'all', page = 0, pageSize = getPageSize(), lightbox;
+
   try {
-    data = (await (await fetch('assets/data/galeria.json')).json()).sort((a, b) => b.year - a.year);
+    const response = await fetch('assets/data/galeria.json');
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const years = await response.json();
+    items = years.flatMap(({ year, items }) => items.map(item => ({ ...item, year })))
+      .sort((a, b) => b.year - a.year || a.date.localeCompare(b.date));
   } catch (err) {
-    tl.innerHTML = '<p class="muted">No se pudo cargar la galería. Abrí el sitio con Live Server (no con doble clic).</p>';
+    timeline.innerHTML = '<p class="muted">No se pudo cargar la galería. Abrí el sitio con Live Server (no con doble clic).</p>';
+    console.error('No se pudo cargar la galería:', err);
     return;
   }
-  nav.innerHTML = '<button class="year-btn active" data-year="all">Todos</button>' +
-    data.map(y => `<button class="year-btn" data-year="${y.year}">${y.year}</button>`).join('');
-  tl.innerHTML = data.map(y => `
-    <div class="year-block" data-year="${y.year}">
-      <div class="year-badge">${y.year}</div>
-      <div class="year-grid">${y.items.map(i => card(i, y.year)).join('')}</div>
-    </div>`).join('');
 
-  GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true });
+  const years = [...new Set(items.map(item => item.year))].sort((a, b) => b - a);
+  nav.innerHTML = ['all', ...years].map(year =>
+    `<button class="year-btn${year === 'all' ? ' active' : ''}" data-year="${year}">${year === 'all' ? 'Todos' : year}</button>`
+  ).join('');
 
-  nav.addEventListener('click', e => {
-    const btn = e.target.closest('.year-btn'); if (!btn) return;
-    nav.querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    tl.querySelectorAll('.year-block').forEach(b =>
-      b.style.display = (btn.dataset.year === 'all' || b.dataset.year === btn.dataset.year) ? '' : 'none');
+  function render() {
+    const filtered = selectedYear === 'all'
+      ? items
+      : items.filter(item => String(item.year) === selectedYear);
+    const start = page * pageSize;
+    const visible = filtered.slice(start, start + pageSize);
+
+    timeline.innerHTML = visible.length
+      ? `<div class="year-grid">${visible.map(card).join('')}</div>`
+      : '<p class="muted">Todavía no hay imágenes para este año.</p>';
+    pageLabel.textContent = filtered.length ? `${start + 1}–${start + visible.length} de ${filtered.length}` : '0 imágenes';
+    previous.disabled = page === 0;
+    next.disabled = start + pageSize >= filtered.length;
+
+    lightbox?.destroy();
+    lightbox = GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true });
+  }
+
+  nav.addEventListener('click', event => {
+    const button = event.target.closest('.year-btn');
+    if (!button) return;
+    selectedYear = button.dataset.year;
+    page = 0;
+    nav.querySelectorAll('.year-btn').forEach(item => item.classList.toggle('active', item === button));
+    render();
   });
+
+  previous.addEventListener('click', () => {
+    if (page === 0) return;
+    page--;
+    render();
+  });
+
+  next.addEventListener('click', () => {
+    page++;
+    render();
+  });
+
+  window.addEventListener('resize', () => {
+    const newPageSize = getPageSize();
+    if (newPageSize === pageSize) return;
+    pageSize = newPageSize;
+    page = 0;
+    render();
+  });
+
+  render();
 }
 
-function card(i, year) {
-  const video = i.type !== 'image';
-  const type = i.type === 'video-local' ? 'video' : (video ? 'external' : 'image');
-  const fecha = new Date(i.date + 'T12:00:00').toLocaleDateString('es-AR', { day: 'numeric', month: 'long' });
-  return `<a href="${i.src}" class="glightbox gallery-item" data-gallery="g-${year}" data-type="${type}"
-      data-title="${i.title}" data-description="${i.place} · ${fecha} de ${year}">
-    <img src="${i.thumb || i.src}" alt="${i.title}" loading="lazy">
+function getPageSize() {
+  return window.innerWidth >= 1280 ? 3 : window.innerWidth >= 640 ? 2 : 1;
+}
+
+function card(item) {
+  const video = item.type !== 'image';
+  const type = item.type === 'video-local' ? 'video' : (video ? 'external' : 'image');
+  const date = new Date(`${item.date}T12:00:00`).toLocaleDateString('es-AR', {
+    day: 'numeric', month: 'long', year: 'numeric'
+  });
+  return `<a href="${item.src}" class="glightbox gallery-item" data-gallery="gallery" data-type="${type}"
+      data-title="${item.title}" data-description="${item.place} · ${date}">
+    <img src="${item.thumb || item.src}" alt="${item.title}" loading="lazy">
     ${video ? '<span class="play"><i class="fa-solid fa-play"></i></span>' : ''}
-    <div class="caption"><strong>${i.title}</strong><small>${i.place}</small></div></a>`;
+    <div class="caption"><strong>${item.title}</strong><small>${item.place} · ${date}</small></div></a>`;
 }
 document.addEventListener('DOMContentLoaded', initGaleria);

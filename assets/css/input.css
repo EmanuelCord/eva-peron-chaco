@@ -1,0 +1,485 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+    scroll-padding-top: 5rem;
+    scroll-behavior: smooth;
+  }
+
+  img {
+    @apply block max-w-full;
+  }
+
+  a {
+    @apply text-inherit no-underline;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display font-bold leading-tight tracking-tight text-navy;
+  }
+
+  h2 {
+    @apply mb-5 text-4xl font-extrabold md:text-5xl;
+  }
+
+  h3 {
+    @apply mb-2 text-2xl font-bold;
+  }
+
+  p {
+    @apply leading-relaxed;
+  }
+
+  :focus-visible {
+    @apply outline outline-2 outline-offset-4 outline-gold;
+  }
+}
+
+@layer components {
+  .wrap {
+    @apply mx-auto w-[min(1160px,92%)];
+  }
+
+  .center {
+    @apply text-center;
+  }
+
+  .lead {
+    @apply mb-8 text-center text-lg text-slate-600;
+  }
+
+  .muted {
+    @apply text-slate-500;
+  }
+
+  #preloader {
+    @apply fixed inset-0 z-[999] grid place-items-center bg-navy text-center font-display text-4xl font-extrabold leading-none text-white transition duration-500;
+  }
+
+  #preloader.hide {
+    @apply invisible opacity-0;
+  }
+
+  .topbar {
+    @apply bg-navy text-sm text-blue-100;
+  }
+
+  .topbar .wrap {
+    @apply flex flex-wrap items-center gap-x-6 gap-y-2 py-2;
+  }
+
+  .topbar i {
+    @apply mr-2 text-gold;
+  }
+
+  .topbar a:hover {
+    @apply text-white;
+  }
+
+  .social {
+    @apply ml-auto flex gap-4;
+  }
+
+  .nav {
+    @apply sticky top-0 z-50 border-b border-slate-100/80 bg-white/95 backdrop-blur-md transition-shadow duration-300;
+  }
+
+  .nav.scrolled {
+    @apply shadow-lg shadow-navy/10;
+  }
+
+  .nav .wrap {
+    @apply relative flex min-h-[76px] items-center justify-between gap-5 py-3;
+  }
+
+  .brand {
+    @apply flex min-w-0 items-center gap-3 text-navy;
+    font: 700 clamp(16px, 1.35vw, 20px) 'Montserrat', sans-serif;
+  }
+
+  .brand-logo {
+    @apply h-10 w-auto shrink-0;
+  }
+
+  #menu {
+    @apply flex items-center gap-6 font-semibold text-slate-700;
+  }
+
+  #menu a:not(.btn) {
+    @apply transition-colors hover:text-blue;
+  }
+
+  .burger {
+    @apply hidden cursor-pointer border-0 bg-transparent p-2 text-2xl text-navy;
+  }
+
+  .btn {
+    @apply inline-flex min-h-12 items-center justify-center rounded-full bg-gold px-6 py-3 font-semibold text-navy shadow-md shadow-gold/20 transition duration-200 hover:-translate-y-0.5 hover:bg-amber-400 hover:shadow-lg;
+  }
+
+  .hero {
+    @apply relative h-[min(78vh,680px)] min-h-[520px] overflow-hidden bg-navy text-white;
+  }
+
+  .slide {
+    @apply absolute inset-0 flex items-center opacity-0 transition-opacity duration-1000;
+    background-image: linear-gradient(90deg, rgb(13 33 55 / 92%) 0%, rgb(18 48 79 / 72%) 48%, rgb(18 48 79 / 18%) 100%), var(--img);
+    background-position: center;
+    background-size: cover;
+  }
+
+  .slide.active {
+    @apply opacity-100;
+  }
+
+  .slide .wrap {
+    @apply py-12;
+  }
+
+  .slide.active .wrap > * {
+    animation: rise-in .8s both;
+  }
+
+  .slide.active p {
+    animation-delay: .12s;
+  }
+
+  .slide.active .btn {
+    animation-delay: .22s;
+  }
+
+  .slide h1 {
+    @apply mb-6 max-w-4xl text-5xl font-extrabold leading-[1.02] text-white sm:text-6xl lg:text-7xl;
+  }
+
+  .slide p {
+    @apply mb-8 max-w-xl text-lg text-blue-50 sm:text-xl;
+  }
+
+  .dots {
+    @apply absolute bottom-7 left-1/2 flex -translate-x-1/2 gap-3;
+  }
+
+  .dots button {
+    @apply h-3 w-3 cursor-pointer rounded-full border-2 border-white bg-transparent transition;
+  }
+
+  .dots button.on {
+    @apply border-gold bg-gold;
+  }
+
+  .grid2, .grid3, .grid4 {
+    @apply grid gap-6;
+  }
+
+  .grid2 {
+    @apply grid-cols-1 md:grid-cols-2;
+  }
+
+  .grid3 {
+    @apply grid-cols-1 md:grid-cols-2 xl:grid-cols-3;
+  }
+
+  .grid4 {
+    @apply grid-cols-1 sm:grid-cols-2 xl:grid-cols-4;
+  }
+
+  .ejes {
+    @apply relative z-10 -mt-10;
+  }
+
+  .ejes .wrap {
+    @apply gap-4;
+  }
+
+  .ejes article {
+    @apply rounded-2xl border-b-4 border-blue bg-white p-6 shadow-xl shadow-navy/10 transition duration-300 hover:-translate-y-2 hover:shadow-2xl;
+  }
+
+  .ejes i, .mv i {
+    @apply mb-4 block text-3xl text-gold;
+  }
+
+  .ejes article p {
+    @apply text-sm text-slate-600;
+  }
+
+  .sec {
+    @apply py-20 md:py-24;
+  }
+
+  .alt {
+    @apply bg-slate-100;
+  }
+
+  .split {
+    @apply grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16;
+  }
+
+  .about-img {
+    @apply relative;
+  }
+
+  .about-img img {
+    @apply aspect-[8/9] w-full rounded-3xl object-cover shadow-xl shadow-navy/10;
+  }
+
+  .about-img b {
+    @apply absolute bottom-6 right-4 rounded-2xl bg-navy px-6 py-4 font-display text-4xl font-extrabold leading-none text-white shadow-xl sm:-right-4;
+  }
+
+  .about-img small {
+    @apply mt-2 block max-w-[14ch] font-body text-sm font-medium leading-snug text-blue-100;
+  }
+
+  .split p {
+    @apply mb-4 text-slate-600;
+  }
+
+  blockquote {
+    @apply my-7 border-l-4 border-gold pl-5 font-display text-2xl font-bold leading-snug text-navy;
+  }
+
+  .mv {
+    @apply rounded-2xl border-t-4 border-blue bg-white p-8 shadow-lg shadow-navy/5 md:p-10;
+  }
+
+  .mv p {
+    @apply text-slate-600;
+  }
+
+  .reveal {
+    @apply translate-y-7 opacity-0 transition duration-700;
+  }
+
+  .reveal.in {
+    @apply translate-y-0 opacity-100;
+  }
+
+  .event {
+    @apply overflow-hidden rounded-2xl bg-white shadow-lg shadow-navy/10 transition duration-300 hover:-translate-y-1 hover:shadow-xl;
+  }
+
+  .event img {
+    @apply aspect-[4/3] w-full object-cover;
+  }
+
+  .event > div {
+    @apply p-6;
+  }
+
+  .event small, .member small {
+    @apply text-sm text-slate-500;
+  }
+
+  .event h3 {
+    @apply mt-3;
+  }
+
+  .event p {
+    @apply text-slate-600;
+  }
+
+  .bar {
+    @apply my-4 h-2 overflow-hidden rounded-full bg-slate-200;
+  }
+
+  .bar i {
+    @apply block h-full w-0 bg-blue transition-[width] duration-[1600ms];
+  }
+
+  .bar.go i {
+    width: var(--w);
+  }
+
+  .counters {
+    @apply bg-cover bg-center py-14 text-center text-white;
+    background-image: linear-gradient(rgb(18 48 79 / 94%), rgb(18 48 79 / 94%)), url(https://picsum.photos/seed/ep-count/1600/600);
+  }
+
+  .counters b {
+    @apply mb-2 block font-display text-5xl font-extrabold leading-none text-gold md:text-6xl;
+  }
+
+  .counters span {
+    @apply text-sm font-medium text-blue-100 sm:text-base;
+  }
+
+  .years-nav {
+    @apply sticky top-[76px] z-10 mb-8 flex flex-wrap justify-center gap-2 bg-stone-50/95 py-4 backdrop-blur;
+  }
+
+  .year-btn {
+    @apply cursor-pointer rounded-full border border-blue/30 bg-white px-5 py-2 font-semibold text-navy transition hover:border-blue hover:bg-blue hover:text-white;
+  }
+
+  .year-btn.active {
+    @apply border-blue bg-blue text-white;
+  }
+
+  .timeline {
+    @apply min-h-64;
+  }
+
+  .year-grid {
+    @apply grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3;
+  }
+
+  .carousel-controls {
+    @apply mt-6 flex items-center justify-center gap-5;
+  }
+
+  .carousel-arrow {
+    @apply grid h-11 w-11 place-items-center rounded-full bg-gold text-navy transition hover:bg-navy hover:text-white disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-gold disabled:hover:text-navy;
+  }
+
+  .carousel-page {
+    @apply min-w-20 text-center text-sm text-slate-500;
+  }
+
+  .gallery-item {
+    @apply relative block aspect-[4/3] overflow-hidden rounded-2xl bg-navy;
+  }
+
+  .gallery-item img {
+    @apply h-full w-full object-cover transition duration-500;
+  }
+
+  .gallery-item:hover img {
+    @apply scale-105;
+  }
+
+  .gallery-item .caption {
+    @apply absolute inset-x-0 bottom-0 translate-y-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-5 pt-12 text-white transition sm:translate-y-full;
+  }
+
+  .gallery-item:hover .caption, .gallery-item:focus-visible .caption {
+    @apply translate-y-0;
+  }
+
+  .caption small {
+    @apply mt-1 block text-white/80;
+  }
+
+  .play {
+    @apply absolute inset-0 grid place-items-center bg-black/20 text-3xl text-white;
+  }
+
+  .join {
+    @apply bg-blue py-16 text-center text-white md:py-20;
+    background-image: linear-gradient(120deg, rgb(18 48 79 / 96%), rgb(74 163 223 / 85%));
+  }
+
+  .join h2 {
+    @apply text-white;
+  }
+
+  #join-form {
+    @apply flex flex-wrap justify-center gap-3;
+  }
+
+  input {
+    @apply min-h-12 min-w-[240px] rounded-full border border-white/60 bg-white px-5 py-3 font-body text-slate-800 shadow-sm outline-none placeholder:text-slate-400 focus:border-gold focus:ring-2 focus:ring-gold/40;
+  }
+
+  #join-msg {
+    @apply mt-4 font-semibold text-white;
+  }
+
+  footer {
+    @apply bg-navy py-14 pb-5 text-blue-100;
+  }
+
+  footer h4 {
+    @apply mb-3 font-display text-xl font-bold text-white;
+  }
+
+  footer a {
+    @apply mb-2 block transition-colors hover:text-gold;
+  }
+
+  .mini {
+    @apply flex flex-wrap gap-2;
+  }
+
+  .mini input {
+    @apply min-w-0 flex-1;
+  }
+
+  .copy {
+    @apply mt-10 border-t border-white/15 pt-5 text-center text-sm text-blue-100/70;
+  }
+
+  #toTop {
+    @apply pointer-events-none fixed bottom-5 right-5 z-[60] grid h-12 w-12 translate-y-2 place-items-center rounded-full bg-gold text-navy opacity-0 shadow-lg transition duration-300 hover:-translate-y-1 hover:bg-amber-400;
+  }
+
+  #toTop.show {
+    @apply pointer-events-auto translate-y-0 opacity-100;
+  }
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(1.5rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 900px) {
+  .burger {
+    @apply block;
+  }
+
+  #menu {
+    @apply absolute left-0 right-0 top-full hidden flex-col items-stretch gap-1 border-t border-slate-100 bg-white p-4 shadow-xl;
+  }
+
+  #menu.open {
+    @apply flex;
+  }
+
+  #menu a:not(.btn) {
+    @apply rounded-lg px-4 py-3 hover:bg-slate-50;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand {
+    @apply gap-2;
+  }
+
+  .brand-logo {
+    @apply h-[34px];
+  }
+
+  .hero {
+    @apply min-h-[480px];
+  }
+
+  .slide h1 {
+    @apply text-5xl;
+  }
+
+  .topbar .wrap {
+    @apply gap-x-4 text-xs;
+  }
+
+  .social {
+    @apply ml-0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    @apply translate-y-0 opacity-100;
+  }
+}

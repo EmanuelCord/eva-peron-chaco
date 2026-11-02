@@ -14,7 +14,11 @@ burger.addEventListener('click', () => {
   const open = menu.classList.toggle('open');
   burger.setAttribute('aria-expanded', open);
 });
-menu.addEventListener('click', e => { if (e.target.tagName === 'A') menu.classList.remove('open'); });
+menu.addEventListener('click', e => {
+  if (e.target.tagName !== 'A') return;
+  menu.classList.remove('open');
+  burger.setAttribute('aria-expanded', 'false');
+});
 
 // Hero slider (fundido automático cada 5 s)
 const slides = [...document.querySelectorAll('.slide')], dots = document.getElementById('dots');

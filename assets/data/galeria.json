@@ -5,11 +5,13 @@
     { "type": "video", "src": "https://www.youtube.com/watch?v=REEMPLAZAR_ID", "thumb": "https://picsum.photos/seed/ep26v/1200/800", "title": "Acto 26 de julio", "place": "Resistencia", "date": "2026-07-26" }
   ]},
   { "year": 2025, "items": [
-    { "type": "image", "src": "https://picsum.photos/seed/ep25a/1200/800", "title": "Jornada solidaria", "place": "Puerto Vilelas", "date": "2025-08-10" },
+    { "type": "image", "src": "/assets/img/lealtad.jpeg", "title": "Lealtad al Pueblo", "place": "Buenos Aires", "date": "2025-01-20" },
     { "type": "image", "src": "https://picsum.photos/seed/ep25b/1200/800", "title": "Taller de formación", "place": "Sáenz Peña", "date": "2025-10-04" }
   ]},
   { "year": 2024, "items": [
-    { "type": "image", "src": "https://picsum.photos/seed/ep24a/1200/800", "title": "Primer encuentro del año", "place": "Villa Ángela", "date": "2024-03-09" },
-    { "type": "video-local", "src": "assets/img/2024/video-ejemplo.mp4", "thumb": "https://picsum.photos/seed/ep24v/1200/800", "title": "Recorrida barrial", "place": "Resistencia", "date": "2024-09-21" }
+    { "type": "image", "src": "/assets/img/primer-encuentro.png", "title": "Primer encuentro del año", "place": "Resistencia", "date": "2024-03-11" },
+    { "type": "image", "src": "/assets/img/segundo-encuentro.jpg", "thumb": "/assets/img/segundo-encuentro.jpg", "title": "Plenario Club Resistencia", "place": "Resistencia", "date": "2024-04-23" },
+    { "type": "image", "src": "/assets/img/pjchaco.png", "title": "Plenario - Partido Justicialista", "place": "Resistencia", "date": "2024-06-10" },
+    { "type": "image", "src": "/assets/img/lanzamiento-avellaneda.png", "title": "Lanzamiento Eva Perón Chaco", "place": "Avellaneda", "date": "2024-10-05" }
   ]}
 ]
